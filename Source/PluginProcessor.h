@@ -3,6 +3,14 @@
 
     This file contains the basic framework code for a JUCE plugin processor.
 
+    https://juce.com/learn/tutorials
+
+    https://docs.juce.com/master/classes.html
+
+    https://docs.juce.com/master/modules.html
+
+    https://forum.juce.com/
+
   ==============================================================================
 */
 
@@ -55,10 +63,20 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    //==============================================================================
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    juce::AudioProcessorValueTreeState& getState();
+
 private:
     //==============================================================================
     // Members (Instance Variables)
+    juce::AudioProcessorValueTreeState apvts;
+
     MidiProcessor midiProcessor;
+    
+    //------------------------------------------------------------------------------
+    // Parameter Pointers
+    juce::AudioParameterFloat* testSlider;  // Test
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SQ251AudioProcessor)

@@ -1,0 +1,30 @@
+git clone --recurse-submodules https://github.com/willpirkleaudio/SynthLab.git
+git clone --recurse-submodules https://github.com/willpirkleaudio/vstgui.git
+
+git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
+
+git clone --recurse-submodules https://github.com/ffAudio/PluginGuiMagic.git
+git clone --recurse-submodules https://github.com/ocornut/imgui.git
+git clone --recursive https://github.com/TheCherno/Hazel
+
+git clone --recurse-submodules https://github.com/grame-cncm/guidolib.git
+
+git clone --recurse-submodules https://github.com/VCVRack/AudibleInstruments.git
+git clone --recurse-submodules https://github.com/VCVRack/library.git
+
+git clone --recurse-submodules https://github.com/electro-smith/Daisy-JUCE-Example
+git clone --recurse-submodules https://github.com/COx2/juce_meets_DaisySP.git
+git clone https://github.com/electro-smith/DaisySP
+
+git clone https://github.com/rheslip/DaisySP_Teensy.git
+git clone https://github.com/PaulStoffregen/Audio.git
+git clone https://github.com/sensorium/Mozzi.git
+
+git clone --recurse-submodules https://github.com/cycfi/q.git
+
+git clone --recurse-submodules https://github.com/axoloti/axoloti-factory.git
+git clone --recurse-submodules https://github.com/BlokasLabs/modep-debs.git
+git clone --recurse-submodules https://github.com/bluecataudio/plugnscript.git
+
+git clone --recurse-submodules https://github.com/korginc/logue-sdk.git
+

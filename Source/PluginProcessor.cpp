@@ -21,11 +21,35 @@ SQ251AudioProcessor::SQ251AudioProcessor()
                      #endif
                        )
 #endif
+    //--------------------------------------------------------------------------
+    , apvts(*this, nullptr, juce::Identifier("PARAMETERS"), createParameterLayout())
+    //--------------------------------------------------------------------------
 {
+    
 }
 
 SQ251AudioProcessor::~SQ251AudioProcessor()
 {
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout SQ251AudioProcessor::createParameterLayout()
+{
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
+    
+    //--------------------------------------------------------------------------
+    // make Parameters and ParameterGroups, move them
+    
+    // Test ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    auto testSlider = std::make_unique<juce::AudioParameterFloat>("testSlider", "TestSlider", juce::NormalisableRange<float>(0.01f, 1.0f, 0.01f), 0.40f);
+    auto group = std::make_unique<juce::AudioProcessorParameterGroup>("testGroup", "TestGroup", "|", std::move(testSlider));
+    layout.add(std::move(group));
+
+    return layout;
+}
+
+juce::AudioProcessorValueTreeState& SQ251AudioProcessor::getState()
+{
+    return apvts;
 }
 
 //==============================================================================
@@ -131,6 +155,13 @@ bool SQ251AudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) co
 
 void SQ251AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+    // -------------------------------------------------------------------------
+    // MIDI PROCESSING
+    midiProcessor.process(midiMessages);
+
+    // =========================================================================
+    // AUDIO PROCESSING
+
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
@@ -156,11 +187,6 @@ void SQ251AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
 
         // ..do something to the data...
     }
-
-    // -------------------------------------------------------------------------
-    // MIDI-Processing
-    midiProcessor.process(midiMessages);
-
 }
 
 //==============================================================================
@@ -180,12 +206,20 @@ void SQ251AudioProcessor::getStateInformation (juce::MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+    auto state = apvts.copyState();
+    std::unique_ptr<juce::XmlElement> xml(state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
 void SQ251AudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<juce::XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+
+    if (xmlState.get() != nullptr)
+        if (xmlState->hasTagName(apvts.state.getType()))
+            apvts.replaceState(juce::ValueTree::fromXml(*xmlState));
 }
 
 //==============================================================================
