@@ -6,6 +6,10 @@
     <GROUP id="{60F33685-A346-5189-089B-03055F10DDAE}" name="Source">
       <GROUP id="{30F96C06-E4F9-5896-1F9B-5712573CEF47}" name="fi">
         <GROUP id="{72CE3673-A6A1-B1F9-0A67-82FFFB7974A7}" name="gui">
+          <FILE id="KptZHx" name="KeyboardComponent.cpp" compile="1" resource="0"
+                file="Source/fi/gui/KeyboardComponent.cpp"/>
+          <FILE id="NZmBLp" name="KeyboardComponent.h" compile="0" resource="0"
+                file="Source/fi/gui/KeyboardComponent.h"/>
           <FILE id="eMl3KT" name="SynthComponent.cpp" compile="1" resource="0"
                 file="Source/fi/gui/SynthComponent.cpp"/>
           <FILE id="JUQM6Z" name="SynthComponent.h" compile="0" resource="0"

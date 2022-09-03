@@ -38,7 +38,15 @@ SynthComponent::SynthComponent()  //SQ251AudioProcessor& p
    
 }
 
+SynthComponent::~SynthComponent()
+{
+}
+
 //------------------------------------------------------------------------------
+
+void SynthComponent::paint(juce::Graphics&)
+{
+}
 
 /*
 * https://docs.juce.com/master/tutorial_rectangle_advanced.html
@@ -70,3 +78,7 @@ void SynthComponent::comboBoxChanged(juce::ComboBox* cb)
 {
 }
 
+void SynthComponent::timerCallback()
+{
+
+}

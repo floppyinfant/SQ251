@@ -16,11 +16,14 @@ class SynthComponent : public juce::GroupComponent  // Component || Editor ???
     , public juce::Slider::Listener
     , public juce::Button::Listener
     , public juce::ComboBox::Listener
+    , private juce::Timer
 {
 public:
 
     SynthComponent();  //SQ251AudioProcessor& p
+    ~SynthComponent();
 
+    void paint(juce::Graphics&) override;
     void resized() override;
 
     //--------------------------------------------------------------------------
@@ -28,8 +31,9 @@ public:
     void sliderValueChanged(juce::Slider* slider) override;
     void buttonClicked(juce::Button* btn) override;
     void comboBoxChanged(juce::ComboBox* cb) override;
+    void timerCallback() override;
 
-//private:
+private:
 
     //--------------------------------------------------------------------------
     // Groups
@@ -47,5 +51,12 @@ public:
     juce::Label label;
     // Attachements connect the Component to the Parameter via the APVTS
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> sliderAttachment;
+
+
+    // examples: definition (make_unique) in CTOR-Init-List
+    //std::unique_ptr<juce::Slider> sliderGain;
+    //std::unique_ptr<juce::Label> labelGain;
+    //juce::OwnedArray<juce::AudioProcessorValueTreeState::SliderAttachment> sliderAttachments;
+    //std::unique_ptr<juce::GroupComponent> sliderGroup;
 
 };
